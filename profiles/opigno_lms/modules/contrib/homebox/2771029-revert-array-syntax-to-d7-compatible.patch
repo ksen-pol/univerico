@@ -1,0 +1,48 @@
+From e4278ff13e00387274c54da0a0b54e46e3ef0af5 Mon Sep 17 00:00:00 2001
+From: Ted Cooper <elc@784944.no-reply.drupal.org>
+Date: Fri, 22 Jul 2016 16:07:43 +1000
+Subject: [PATCH] Issue #2771029 by ELC: Revert array syntax to version compatible with Drupal 7 minimum.
+
+---
+ homebox.admin.inc |    2 +-
+ homebox.module    |    4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/homebox.admin.inc b/homebox.admin.inc
+index c3d4d13..75c4bbc 100644
+--- a/homebox.admin.inc
++++ b/homebox.admin.inc
+@@ -64,7 +64,7 @@ function homebox_admin_page($form, &$form_state, $page = FALSE) {
+   $form['page']['options']['menu'] = array(
+     '#type' => 'checkbox',
+     '#title' => t('Visible menu item'),
+-    '#description' => t('Can be positioned in <a href="!url">Menus admin</a>.', ['!url' => url('admin/structure/menu')]),
++    '#description' => t('Can be positioned in <a href="!url">Menus admin</a>.', array('!url' => url('admin/structure/menu'))),
+     '#default_value' => $page ? $page->settings['menu'] : 1,
+   );
+ 
+diff --git a/homebox.module b/homebox.module
+index 440a2ff..65859d3 100644
+--- a/homebox.module
++++ b/homebox.module
+@@ -34,7 +34,7 @@ function homebox_menu() {
+     foreach ($pages as $page) {
+       $items[$page->settings['path']] = array(
+         'title callback' => 'homebox_build_title',
+-        'title arguments' => [$page->settings['title']],
++        'title arguments' => array($page->settings['title']),
+         'page callback' => 'homebox_build',
+         'page arguments' => array($page),
+         'access callback' => '_homebox_user_access_view_homebox',
+@@ -58,7 +58,7 @@ function homebox_menu() {
+     if ($page) {
+       $items['user/%user/' . $page->settings['path']] = array(
+         'title callback' => 'homebox_build_title',
+-        'title arguments' => [$page->settings['title']],
++        'title arguments' => array($page->settings['title']),
+         'page callback' => 'homebox_build',
+         'page arguments' => array($page),
+         'access callback' => '_homebox_user_access_view_user_homebox',
+-- 
+1.7.1
+

@@ -34,7 +34,7 @@ function homebox_menu() {
     foreach ($pages as $page) {
       $items[$page->settings['path']] = array(
         'title callback' => 'homebox_build_title',
-        'title arguments' => [$page->settings['title']],
+        'title arguments' => array($page->settings['title']),
         'page callback' => 'homebox_build',
         'page arguments' => array($page),
         'access callback' => '_homebox_user_access_view_homebox',
@@ -58,7 +58,7 @@ function homebox_menu() {
     if ($page) {
       $items['user/%user/' . $page->settings['path']] = array(
         'title callback' => 'homebox_build_title',
-        'title arguments' => [$page->settings['title']],
+        'title arguments' => array($page->settings['title']),
         'page callback' => 'homebox_build',
         'page arguments' => array($page),
         'access callback' => '_homebox_user_access_view_user_homebox',
